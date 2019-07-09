@@ -76,7 +76,7 @@ It is extremely useful to put inline code into your sentences. For example, we c
 
 ## Cross Referencing a Figure
 
-If you need to make reference to a figure, for example to figure \@ref(fig:hist), you do it by the *name* and not by the *number* so that if the sigure order changes, the numbering will change automatically.
+If you need to make reference to a figure, for example to figure \@ref(fig:hist), you do it by the *name* and not by the *number* so that if the figure order changes, the numbering will change automatically.
 
 ## Figures from a file
 
@@ -88,7 +88,7 @@ knitr::include_graphics("Images/darth")
 
 # Insertion of Tables
 
-Tables need to be outputed through a function in order that they look nice.  Ultimately, there is total control of the table appearance using LaTeX, but this is outside our scope. Simple tables can be inserted with the `kable` package.
+Tables need to be outputted through a function in order that they look nice.  Ultimately, there is total control of the table appearance using LaTeX, but this is outside our scope. Simple tables can be inserted with the `kable` package.
 
 ```{r table, echo = FALSE}
 age <- c(22,34,54)
@@ -103,7 +103,7 @@ knitr::kable(patient.data, booktabs = TRUE, col.names = c("Age(y)","Sex", "TSH")
 
 Of course, tables can be cross referenced in the same manner as figures. Here is a cross reference to table \@ref(tab:table).
 
-Of course, you can take the output of a statistical analsis and put it into a table as shown in table \@ref(tab:bigtable):
+Of course, you can take the output of a statistical analysis and put it into a table as shown in table \@ref(tab:bigtable):
 
 ```{r bigtable, echo = FALSE}
 library(broom)
@@ -128,15 +128,15 @@ Here is an article that Shannon Haymond wrote [@haymond2005laboratory] and here 
 
 ## CSL files and Reference Abbreviation
 
-Abbreviation of reference names is not mandatory if you are submitting to an Elsevier journal but if you are submitted as a WORD document to a journal that does not support LaTeX, you will need to abbreviate your references as per the journal's requirements. I have prepared a .json file for you from the *entire* web of science list of journals. It is stored in the Extras folder. This will permit journal abbreviation. To choose the right reference formating you need to choose the right .csl file from the [github csl repository](https://github.com/citation-style-language/styles). You can download the sourcecode for this article [here](https://github.com/drdanholmes/AACC2019).
+Abbreviation of reference names is not mandatory if you are submitting to an Elsevier journal but if you are submitted as a WORD document to a journal that does not support LaTeX, you will need to abbreviate your references as per the journal's requirements. I have prepared a .json file for you from the *entire* web of science list of journals. It is stored in the Extras folder. This will permit journal abbreviation. To choose the right reference formatting you need to choose the right .csl file from the [github csl repository](https://github.com/citation-style-language/styles). You can download the sourcecode for this article [here](https://github.com/drdanholmes/AACC2019).
 
 # Useful Online Articles
 
 Here are several useful articles on this topic:
 
 + [The idea for the presentation started with this blog article](https://labrtorian.com/2018/02/05/reproducible-research-write-your-clinical-chemistry-paper-using-r/).
-+ [A nice presentation can be found. here](http://rstudio-pubs-static.s3.amazonaws.com/368020_865af4d4afaa4c5cbdb95a7b2670c812.html#49).
-+ [Here is a helpful artilce](https://libscie.github.io/rmarkdown-workshop/handout.html).
++ [A nice presentation can be found here](http://rstudio-pubs-static.s3.amazonaws.com/368020_865af4d4afaa4c5cbdb95a7b2670c812.html#49).
++ [Here is a helpful article](https://libscie.github.io/rmarkdown-workshop/handout.html).
 + [Here is the Definitive Guide for all things Bookdown](https://bookdown.org/yihui/rmarkdown/). This pertains to much more than academic papers.
 
 # Submitting your Stuff

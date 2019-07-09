@@ -69,11 +69,13 @@ prime.factor(132) #Finds the prime factors of 132
 This produces unfortunate looking unformatted output which can be improved upon.
 
 ## Inline Code
+
 It is extremely useful to put inline code into your sentences. For example, we can calculate the median and central 95% of $x$ as `r round(median(x),3)`, CI = [`r round(quantile(x, probs = c(0.025,0.975)),3)`] and have it appear right in this sentence along with, say, the maximum of $x=$ `r max(x)`.  
 
 # More on Figures 
 
 ## Cross Referencing a Figure
+
 If you need to make reference to a figure, for example to figure \@ref(fig:hist), you do it by the *name* and not by the *number* so that if the sigure order changes, the numbering will change automatically.
 
 ## Figures from a file
@@ -86,7 +88,7 @@ knitr::include_graphics("Images/darth")
 
 # Insertion of Tables
 
-Tables need to be outputed through a function in order that they look nice.  Ultimately, there is total control of the table appearance using \LaTeX, but this is outside our scope. Simple tables can be inserted with the `kable` package.
+Tables need to be outputed through a function in order that they look nice.  Ultimately, there is total control of the table appearance using LaTeX, but this is outside our scope. Simple tables can be inserted with the `kable` package.
 
 ```{r table, echo = FALSE}
 age <- c(22,34,54)
@@ -112,7 +114,7 @@ knitr::kable(tidy(mod), digits = 3, booktabs = TRUE, caption = "A more complex t
 
 # Handling Mathematics
 
-You can insert mathematics inline with the use of \$-signs and \LaTeX math code. For example we can say $sin^2(x) + cos^2(x) = 1$ or $sin(x) = \frac{Opposite}{Hypotenuse}$. You can also make equations that are complex and cross-referenceable as shown in equation \@ref(eq:myequation).
+You can insert mathematics inline with the use of \$-signs and LaTeX math code. For example we can say $sin^2(x) + cos^2(x) = 1$ or $sin(x) = \frac{Opposite}{Hypotenuse}$. You can also make equations that are complex and cross-referenceable as shown in equation \@ref(eq:myequation).
 
 \begin{equation}
 i\hbar \frac{\partial \Psi}{\partial t} = -\frac{\hbar^2}{2m}
@@ -126,7 +128,7 @@ Here is an article that Shannon Haymond wrote [@haymond2005laboratory] and here 
 
 ## CSL files and Reference Abbreviation
 
-Abbreviation of reference names is not mandatory if you are submitting to an Elsevier journal but if you are submitted as a WORD document to a regular journal, you will need to abbreviate your references as per the journal's requirements. I have prepared a .json file for you from the *entire* web of science list of journals. It is stored in the Extras folder. This will permit journal abbreviation. To choose the right reference formating you need to choose the right .csl file from the [github csl repository](https://github.com/citation-style-language/styles). You can download the sourcecode for this article [here](https://github.com/drdanholmes/AACC2019).
+Abbreviation of reference names is not mandatory if you are submitting to an Elsevier journal but if you are submitted as a WORD document to a journal that does not support LaTeX, you will need to abbreviate your references as per the journal's requirements. I have prepared a .json file for you from the *entire* web of science list of journals. It is stored in the Extras folder. This will permit journal abbreviation. To choose the right reference formating you need to choose the right .csl file from the [github csl repository](https://github.com/citation-style-language/styles). You can download the sourcecode for this article [here](https://github.com/drdanholmes/AACC2019).
 
 # Useful Online Articles
 
@@ -139,6 +141,6 @@ Here are several useful articles on this topic:
 
 # Submitting your Stuff
 
-If you need to submit in word, just knit to Word instead of PDF. The yaml parameter `keep_tex = TRUE` permits you to have the \LaTeX source which is submittable as is to any Elsevier journal. 
+If you need to submit in word, just knit to Word instead of PDF. The yaml parameter `keep_tex = TRUE` permits you to have the LaTeX source which is submittable as is to any Elsevier journal. 
 
 # References

@@ -103,7 +103,7 @@ knitr::kable(patient.data, booktabs = TRUE, col.names = c("Age(y)","Sex", "TSH")
 
 Of course, tables can be cross referenced in the same manner as figures. Here is a cross reference to table \@ref(tab:table).
 
-Of course, you can take the output of a statistical analysis and put it into a table as shown in table \@ref(tab:bigtable):
+You can also take the output of a statistical analysis and put it into a table as shown in table \@ref(tab:bigtable):
 
 ```{r bigtable, echo = FALSE}
 library(broom)
@@ -124,11 +124,11 @@ i\hbar \frac{\partial \Psi}{\partial t} = -\frac{\hbar^2}{2m}
 
 # Handling Literature References
 
-Here is an article that Shannon Haymond wrote [@haymond2005laboratory] and here is one that Dan Holmes wrote that has fewer citations and is not as important [@rehan2015laboratory]. If we wanted to cite them both together we can [@haymond2005laboratory; @rehan2015laboratory].
+Here is an article that Shannon Haymond wrote [@haymond2005laboratory] and here is one that Dan Holmes wrote that has fewer citations and is not as important [@rehan2015laboratory]. If we wanted to cite them both together we can do so [@haymond2005laboratory; @rehan2015laboratory].
 
 ## CSL files and Reference Abbreviation
 
-Abbreviation of reference names is not mandatory if you are submitting to an Elsevier journal but if you are submitted as a WORD document to a journal that does not support LaTeX, you will need to abbreviate your references as per the journal's requirements. I have prepared a .json file for you from the *entire* web of science list of journals. It is stored in the Extras folder. This will permit journal abbreviation. To choose the right reference formatting you need to choose the right .csl file from the [github csl repository](https://github.com/citation-style-language/styles). You can download the sourcecode for this article [here](https://github.com/drdanholmes/AACC2019).
+Abbreviation of reference names is not mandatory if you are submitting to an Elsevier journal but if you are submitting as a Word document to a journal that does not support LaTeX, you will need to abbreviate your references as per the journal's requirements. I have prepared a .json file for you from the *entire* web of science list of journals. It is stored in the Extras folder. This will permit journal abbreviation. To choose the right reference formatting you need to choose the right .csl file from the [github csl repository](https://github.com/citation-style-language/styles). You can download the sourcecode for this article [here](https://github.com/drdanholmes/AACC2019).
 
 # Useful Online Articles
 

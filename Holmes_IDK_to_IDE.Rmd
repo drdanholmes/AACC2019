@@ -1,0 +1,540 @@
+---
+title: |
+  | Moving from IDK to IDE
+  | Introductory R course
+  | Sunday Aug 04, 2019
+  | AACC 2019, Anaheim CA
+author:
+- Daniel T. Holmes, MD (dtholmes@mail.ubc.ca)
+- Department of Pathology and Laboratory Medicine, University of British Columbia
+- Stephen R Master, MD PhD (masters@email.chop.edu)
+- Department of Pathology and Laboratory Medicine, Children's Hospital of Philadelphia 
+documentclass: article
+output:
+  pdf_document:
+    fig_height: 3.75
+    fig_width: 5
+    number_sections: yes
+    toc: yes
+#    dev: CairoPDF
+header-includes: \usepackage{exercise}
+---
+
+\newpage
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(dev='png', dpi=200, message = FALSE, warning = FALSE, fig.height = 3)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.height = 3)
+```
+
+## Preparation for the Course
+
+This Short Course requires you to bring your own laptop. Plugs will be provided on the tables so that you do not have to rely on your battery life. You must install the necessary software before you arrive. It can take up to 30 mins and you do not want to be stuck doing this in the session because you get behind.
+
+You need to install both the R programming Language and the R-Studio interface to R. While one can use R without R-Studio, we will all use it to make things uniform. The R programming language is available for download from many different places. Here are three places in Canada, <http://cran.stat.sfu.ca/>; <http://cran.utstat.utoronto.ca/>; <https://mirror.its.dal.ca/cran/>. Choose the download that is appropriate for your laptop (whether Linux, Mac or Windows). Rstudio can be downloaded and installed free for personal use from: <https://www.rstudio.com/products/RStudio/>. You want the Open Source Edition.
+
+Throughout this handout, we'll be showing you R code in a shaded box like this
+```{r, eval = FALSE}
+R code goes here
+```
+and output will come be in an unshaded area after two "#" signs
+```{r, echo = FALSE}
+print("Here is some R output")
+```
+
+# Lesson 1: Basics and Data Types
+## What is R?
+
+The purpose of this course is to show you that many of the data management and data analysis task you *wish* you could do in Excel are, in fact, very easy if you move to the statistical programming language R.
+
+R is what is known as a “scripting language”. This means that R does not build portable, stand–alone programs like commercial software we usually purchase. In contrast, R requires the R interpreter to be pre-installed on the computer before we can use any of its utilities. The same is true of other popular scripting languages like Python, PHP, Ruby and JavaScript. In principle this means that if you are using R on a company laptop and you don't have administrative privileges, you are going to need IT to help you install it. 
+
+R has been built for Windows, Linux and Mac, which means that R code you write can be run by other people on other systems *without any alterations to the code*, provided that they have installed the R interpreter. There are occasional exceptions to this rule but any code alterations are--most often--trivial.
+
+The programs you write in R are saved as text or "ASCII" files that you save like any old document. You can use any text editor to write your program. This might include programs like Notepad or Notepad++ in the Windows environment or Gedit, eMacs, vi, Nano or Sublime Text in the Linux/Mac environments. In this course we will use a text editor in an environment specifically built for R called RStudio. This program has the benefit that it can both allow you to edit your text and run it without leaving the RStudio program. RStudio has many other convenient features that you will discover should you choose to continue this jou–R–ney. We could spend a lot of time on the background, but we do not have a great deal of time together so we should just jump right in.
+
+## Algebra
+R can act as a calculator.  It follows these basic rules or algebra.
+
+| Operation      | Expression  | R Code  |
+|:--------------:|:-----------:|:-------:|
+| Addition       | $x + y$     | `x + y` |
+| Subtraction    | $x - y$     | `x - y` |
+| Multiplication | $x\times y$ | `x * y` |
+| Division       | $x\div y$   | `x / y` |
+| Exponents      | $x^y$       | `x^y` or `x**y`   |
+| Logarithm      | $\log(x)$   | `log(x)`|
+| Exponential    | $e^x$       | `exp(x)`|
+| Trig Functions | $\sin(x)$   | `sin(x)`|
+
+
+
+There are some other useful built-in functions in R. These are:
+
+* `abs(x)`
+* `sqrt(x)`
+* `floor(x)`
+* `round(x, digits = n)`
+* `signif(x, digits = n)`
+
+### Exercise
+1. Experimentation is a great way to find out what a function does. Determine the square root of 64 with the `sqrt()` function and using the fact that the square root of 64 is really $64^{1/2}$
+2. Try the following:
+    + `ceiling(1.2)`
+    + `ceiling(1.49)`
+    + `ceiling(1)`
+    What does ceiling do?
+3. Try the following:
+    + `round(1.4503,1)`
+    + `round(exp(1),4)`
+    + `round(pi,4)`
+    + Now try typing `round(12314,-1)` and `round(12314,-2)`. What's happening here?
+4. What does `trunc(5.99)` give you? What does `trunc(-3.43)` give you? How is `trunc()` different than `floor()`?
+
+## Comments
+Note that anything we type on an R line that comes after the `#` sign is ignored by R.  This is very useful for including comments in your code and helps to remind you (and others) what you were thinking.  Because anything after the `#` is ignored, we can either put a comment on its own line:
+
+```{r}
+# here is a comment
+```
+
+or after some code that is going to be executed
+
+```{r}
+2 + 2  # we had better get the answer "4"
+```
+
+## Variables
+Variables allow you to store your data so that it can be easily retrieved at a later time.  For example, suppose you calculated the standard deviation of a data set and you had to use this result over and over again (and you did not want to type it our each time!).  The best way to reuse this value is to store it in a variable.
+
+```{r}
+my.sd <- 0.352
+my.sd
+1.96 * my.sd 
+```
+Notice that assigning the variable is performed with an "arrow"  <- . The arrow can actually go the other way too but we don't do that all too much.
+
+```{r}
+a <- 5 -> b
+a
+b
+```
+Getting rid of a variable is sometimes convenient, and the way to do this is with the `rm()` function.
+
+```{r, error = TRUE}
+rm(a)
+a
+```
+
+To list all active variables type `ls()`. To remove all active variables type `rm(list = ls)`. This can also be achieved by clicking the broom icon in the **Environment** tab of the top right pane of Rstudio.
+
+## Data Types
+We will encounter a variety of different data types during this course, and each has specific applications.
+```{r, cache = FALSE}
+var.1 <- TRUE # a logical variable
+class(var.1)
+var.2 <- 32.5 # a numeric variable
+class(var.2)
+var.3 <- "Michael" # a character variable
+class(var.3)
+```
+
+Also, we can make integer variables and factor variables. R guesses which you want, and if it guesses wrong you may need to force it to assume the correct data type. You will see this later on. Don't assume that R has correctly read your mind on the data type you wanted. 
+
+```{r, error = TRUE}
+var.4 <- 5
+class(var.4)
+var.4 <- as.integer(var.4)  # coerces the value to the class of integer
+class(var.4)
+var.5 <- "4"
+class(var.5)
+7 * var.5                   # what happened?
+var.5 <- as.numeric(var.5)  # coerces the character into a numeric
+class(var.5)
+7 * var.5                   # ahhh no error now.
+```
+
+## Vectors
+Vectors are a way to store multiple data points in a single variable. They are like a column from an Excel file and we will use them a lot. To define a vector you have to use the combine `c()` function to group the data. 
+
+```{r}
+x <- c(5,3,6,4,7,2,6) # defines the variable x
+class(x)              # what class will this be?
+```
+
+Importantly, every member of the vector must be of the same type and if they are not, R will choose a data type that will be compatible with all the elements.
+
+```{r}
+y <- c(5,3,6,4,7,2,"Hi There") 
+class(y)              # What happened?
+y
+```
+
+Let's explore some algebra:
+
+```{r}
+x + 2  	# What does it do?
+x + x		# How is this different from x+2
+x / 2		# What does this do?
+x * x		# What does this do?
+x / x		# What does this tell you about dividing vectors?
+sum(x) 	# What does this calculate?
+mean(x)	# And this?
+sd(x)		# And this?
+length(x)	# And this? This is really useful.
+c(x, x)
+rep(x,3)
+```
+
+What if we wanted to find out an individual value from x?
+
+```{r}
+x[2]  # Note the SQUARE brackets.
+# OK, makes sense
+```
+
+What if we wanted to know which value of x was 6, if any?
+
+```{r}
+which(x  ==  6)
+```
+
+**CAREFUL**  "` == `" is used to compare two values to see if they are equal; don't confuse this with and "` = `" or "` <- `", which are for assignment.
+
+```{r}
+x[which(x  ==  6)]    # should give us back a number of 6's of course.
+x  ==  6    #this gives us a logical vector answering the question "Is the value 6?"
+y <- x  ==  6
+y  
+x[y]    #this should just give us back the 6's   
+x[x  ==  6]
+```
+
+### Exercise
+1. Define a variable, `days`, which contains all the days of the week.
+```{r, include = FALSE}
+###Solution###
+days.o.week <- c("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
+days.o.week
+#alternatively you will later learn that you can do this:
+library("lubridate")
+days.o.week <- as.character(wday(1:7, label = TRUE, abbr = FALSE))
+days.o.week
+```
+
+2. Now imagine that you move to a planet where there are an 8th and 9th day of the week, called "Chillday" and "Sleepday". Can you use `c()` to add these days to your days variable so that you do not have to retype everything?
+```{r, include = FALSE}
+###Solution###
+days.o.week <- c(days.o.week,"Chillday", "Sleepday")
+days.o.week
+```
+
+### Exercise
+1. Type `1:10` <Enter> and see what happens.
+2. Now type `x <- 1:10`. What did this do? Find out by asking R what `x` is.
+3. Now type `x <- 5:10`. What did this do?
+4. Type ?seq in the console to find out what the `seq()` function does. Can you replicate the results of `x <- 5:10` with `seq()`? Why is `seq()` more flexible?
+```{r, include = FALSE}
+###Solution to 4.###
+seq(5,10,1)
+```
+
+### Exercise
+1. Write an expression in R that will always return the last value in a vector named `z`.
+```{r, include = FALSE}
+###Solution###
+z <- c("this","is","a","phrase","eh?")
+z[length(z)]
+#alternatively
+tail(z,1)
+```
+2. Test your expression's success. We'll start by generating a sequence of letters of the alphabet that terminates randomly.
+
+```{r}
+  z <- letters[1:round(runif(1,0,26),0)]  # don't worry about why this works right now.
+  z
+  z[length(z)]                            # check what the last value is
+```
+
+    Now apply your expression to identify the last letter in the sequence you generated.
+
+# Lesson 2: Matrices, Dataframes and Lists
+## Matrices
+
+A matrix is a 2D analogue of the vector. Matrices may not seem all that important but there are certain R statistical functions requiring their use and so you are certainly going to encounter them.
+
+```{r}
+days <- 1:28  # Generates a sequence of 28 integers
+days          # confirm that you have done what you thought
+# Note: another way to do this is with days <- seq(from = 1, to = 28, by = 1)
+```
+
+Now, let's convert this to something that looks more like the calendar layout of February.
+
+```{r}
+matrix(days, nrow = 4, ncol = 7)
+# Huh? What happened?
+#
+# Let's try again
+matrix(days, nrow = 4, ncol = 7, byrow = TRUE)
+# Ahhh
+```
+
+### Exercise
+* February 2016 started on a Monday but was a leap-year.  Make a matrix for February 2016 and fill days that are not in February with NA. We'll talk later about different places that NA pops up, but for now just know that it's R's way of denoting data that is "**N**ot **A**vailable".  Hint for this exercise: start by using the `c()` command to prepend  the appropriate number of NA's to the beginning and the end of variable days. Assign the name feb.2016 to your matrix.
+
+To get a specific value of your matrix, you simply refer to the row and column.
+
+```{r, include = FALSE}
+###Solution###
+feb.2016 <- matrix(c(NA,1:29,NA,NA,NA,NA,NA),nrow = 5,ncol = 7, byrow = TRUE)
+```
+
+```{r}
+feb.2016[3, 4] #Gives entry from row 3 column 4.  Should return 17 as the result.
+# To get all the values in the column, you simply omit the row number.
+feb.2016[ ,6] # Gives us what we need: all the Saturdays.
+# ...and the same trick works for columns
+feb.2016[3, ] # Gives us week 3.
+```
+
+### Exercise
+The raw speed data from your latest bike ride can be exported from your Garmin and brought into R. The ride happens to be exactly 38 mins duration and data is sampled every second. This means that there will be 2280 measurements in total. Execute this code to import the data from a file. 
+```{r, results = 'hide'}
+speed.data <- read.csv("Data_Files/speed.csv")
+speed.data <- speed.data[,1]
+```
+
+* Now, convert this data into a matrix of 38 columns where each column is the speed data of one minute. 
+
+```{r, include = FALSE}
+###Solution###
+speed.mat <-  matrix(speed.data, nrow = 60, ncol = 38, byrow = FALSE)
+head(speed.mat, 200)
+```
+
+## Data Frames
+Data frames are the closest thing you are going to get to Excel-like storage of your data. When you read your data into R from a file (if you have saved it from Excel in a standard format), it will become a data frame.
+
+Let's convert our February 2016 matrix to a data frame, and then we will look at how to import Excel-like data to a data frame.  We will spend some time working with data frames because they are going to be our bread and butter.
+
+First, we can convert a matrix to a data frame:
+
+```{r}
+feb.2016 <- as.data.frame(feb.2016)
+feb.2016
+# this has uninformative column names, but we can name the columns as we can in Excel
+names(feb.2016) <- c("Sun","Mon","Tue","Wed","Thu","Fri","Sat")
+feb.2016
+# much better
+```
+
+Second, we can build a data frame from vectors as follows.
+
+```{r}
+odd.nums <- c(1,3,5,7)
+even.nums <- c(2,4,6,8)
+numbers <- data.frame(odds = odd.nums, evens = even.nums)
+numbers
+# alternatively, numbers <- as.data.frame(rbind(odds,evens))
+```
+
+So, the columns of a data frame could be the results of different data fields in your study, name, health number, sex, age, date of last visit, blood pressure, medications, creatinine, hemoglobin etc. Whatever you could store in an Excel sheet could be in a dataframe. We often want to pull out specific columns from a data frame--usually to perform statistical tests.
+
+Pulling out a column is easy.  We can do it by the column name or we can do it by the column number.
+
+```{r}
+# by column name
+feb.2016$Tue # gives all the Tuesdays in Feb 2016
+
+# by column number
+feb.2016[,3] # gives all rows of the third column, which is the same
+
+# You can pull out data from an individual cell.
+feb.2016[2,3]
+
+# Or you can do the same with the $ approach because feb.2016$Tue is a vector
+feb.2016$Tue[2]
+```
+
+If you need to pull more than one column out, you can do so by numbers or the names:
+
+```{r}
+# by number
+feb.2016[,3:4]
+
+#by name - this is particularly convenient when dealing with large dataframes
+feb.2016[,c("Tue","Wed")]
+```
+
+Let's go back to that bike speed data we have above.  We will start by turning it into a data frame.
+
+```{r}
+speed.frame <- as.data.frame(speed.mat)
+names(speed.frame ) <- paste0("min_",1:38)
+#head(speed.frame)
+```
+
+### Exercise
+* Using the speed.frame dataframe, find the average speed of the 20th minute of your ride.
+
+```{r, include = FALSE}
+###Solution###
+min.20.avg <- mean(speed.frame$min_20)
+min.20.avg
+```
+
+Note that if you try to find the average by row instead of a column, you will run into a problem that illustrates something about data frames, namely that if you extract a row, you can't just simply do algebra on it because there is generally no guarantee that different columns of a data frame will all be numbers. 
+
+```{r, error = TRUE}
+min.start.avg <- mean(speed.frame[1,]) #does not work
+min.start.avg <- mean(speed.mat[1,]) #does work
+```
+
+Here are some things you can do with data in a data frame. You can ask R to tell you things about your data points. For example, you could ask R for some descriptive statistics of the last minute of your ride:
+
+```{r}
+mean(speed.frame$min_38)
+median(speed.frame$min_38)
+sd(speed.frame$min_38)
+summary(speed.frame$min_38) # a statistical summary
+quantile(speed.frame$min_38 ,probs = c(0.25,0.50, 0.75)) # specific quantiles
+```
+
+But this does not work when you try to take the grand mean:
+
+```{r, error = TRUE}
+mean(speed.frame)
+```
+
+But this approach does work for matrices
+
+```{r, error = TRUE}
+mean(speed.mat)
+```
+
+Remember, we'll say more later about "NA", but for now notice that R gives us a nasty warning message.  The reason that the `mean` function does not operate on data frames in this case because the data in a data frame is often not numeric.  
+
+You can also ask R to tell you which values have certain properties.
+
+```{r}
+# did you dip below 25 kph in the last minute of your ride?
+speed.frame$min_38 < 25
+```
+
+But the code authors acknowledge that it is a pain to have to write out those `$` signs all the time, so try this:
+
+```{r}
+attach(speed.frame)
+min_1 # now min_1 is a local variable
+min_2 # ...and so is min_2!
+```
+
+Note that if you alter the attached variables, they *do not* alter the original data frame. To remove these variables we type:
+
+```{r}
+detach(speed.frame)
+```
+
+There are lots of reasons not to use `attach`, but it is good for quick and dirty things.
+
+### Exercise
+* We are going to read in a little more data from your bike ride. This time the data will contain time, cadence, heart rate, distance, speed and power.
+
+```{r}
+ride.data <- read.csv("Data_Files/ride_file.csv")
+head(ride.data)
+```
+
+Isolate the data from your ride for which your speed was over 65 kph.
+
+```{r, include = FALSE}
+###Solution###
+watts.over.65 <- ride.data$kph > 65
+# or
+watts.over.65 <- which(ride.data$kph > 65)
+
+over.65.data <- ride.data[watts.over.65 ,]
+over.65.data
+```
+
+What you have just done is called subsetting your data frame, and it is a very frequent task that we are going to be doing more of in the next hour. Because it is such a common task (e.g. pulling out all the subjects less than 40 years, pulling out all the male subjects, excluding an outlier), there is a specific command for it:
+
+```{r}
+subset(ride.data, kph > 65)
+```
+
+You can build other logical constraints to isolate data of interest in vectors, matrices and data frames by using `&` (AND), `|` (OR), and `!` (NOT). For example:
+
+```{r}
+x <- c(3,4,2,7,5,8,9,5,-2,34,15,7)
+# values of x greater than 2 and less than 7. Use the & for AND.
+x[x > 2 & x < 7]
+# values of x not less than 15
+x[!(x < 15)]
+# which is the same as
+x[x >=  15]
+# values of x less than 3 or greater than 5. Use the | for OR.
+x[x < 3 | x > 5]
+# all values except the first three: use a minus sign
+x[-(1:3)]
+```
+
+and with the data frame we might ask for rows your speed was under 20 km/h but your power was over 350 watts.
+
+
+```{r}
+subset(ride.data, kph < 15 & watts > 350)
+```
+
+*(Note that -- just like algebra -- we can use parenthesis to make absolutely clear what order we are using to evaluate the expressions)*
+
+## Lists
+Lists are another way of storing data in a conveniently accessible way. Usually they are used for data types that are different in structure (or store different types of data) but are related because they are part of the same analysis. For example, R frequently provides output of statistical analysis in the form of a list.  Suppose you had a vector, a data frame and a matrix:
+
+```{r}
+a <- c("Doe","a","deer") 
+b <- data.frame(lyrics1 = c("a","female","deer"), lyrics2 = c("Ray","a","drop"))
+d <- matrix(seq(from = 0, to = 100, length.out = 25), nrow = 5, ncol = 5)
+```
+
+But they were all related to some specific problem and you wanted to bundle them together in another variable. This is where you would use a list.
+
+```{r}
+my.list <- list(a,b,d)
+my.list
+```
+
+Components of the list are addressed using a double bracket notation. For example:
+
+```{r}
+my.list[[2]] # gives the data frame.
+```
+
+If you happen to give the components of the list names, you can address with the `$` notation:
+
+```{r}
+my.list <- list(one = a,two = b,three = d)
+my.list
+my.list$two # gives the same dataframe data
+```
+
+R very often uses lists for statistical reports. For example, the `lm()` function is used to generate a regression report by R.  You can assign the output of `lm()` to a variable and this variable contains a very useful list. 
+
+```{r, results = "hide"}
+x <- 1:10
+y <- 2 * x + rnorm(10,0,1)  # generates some fake data
+reg <- lm(y ~ x)
+str(reg)                    # shows what variables that reg stores.
+
+# ...but they generate a lot of output, so try it on your own
+
+reg$residuals
+reg$fitted.values
+```
+```{r}
+# OK, fine--we'll show one...
+reg$coefficients
+```
+
+As a final trivia point, data frames are really just lists of columns, each of which is an equal-length vector.

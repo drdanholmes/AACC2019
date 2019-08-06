@@ -1,0 +1,147 @@
+---
+title: Example Paper for AACC
+author:
+  - name: Daniel T. Holmes
+    email: dtholmes@mail.ubc.ca
+    affiliation: UBC
+    footnote: Corresponding Author
+  - name: Shannon Haymond
+    email: shaymond@luriechildrens.org
+    affiliation: NW
+address:
+  - code: UBC
+    address: St. Paul's Hospital, 1081 Burrard Street, Vancouver, BC V6Z 1Y6
+  - code: NW
+    address: Ann & Robert H. Lurie Children's Hospital, 225 E Chicago Avenue, Chicago, IL 60611
+abstract: |
+  Introduction: This is your introduction. It will be compelling. It will describe the retirement of an old immunoassay line and the introduction of a new immunoassay line.
+  
+  Methods: Your incredible validation experiment of a new immunoassay line will go here. You will reference the CLSI. 
+  
+  Results: Your regression coefficients and biases will go here. 
+  
+  Conclusion: You will inevitably conclude that the methods are suitable for routine clinical use.
+journal: "An awesome journal"
+date: "`r Sys.Date()`"
+
+output:
+  bookdown::word_document2:
+    pandoc_args: [
+      "--csl", "Extras/clinical-biochemistry.csl" , "--citation-abbreviations", "Extras/abbreviations.json"]
+bibliography: "Extras/mybibfile.bib"
+---
+keywords: "CRAN, R, RMarkdown, RStudio"
+header-includes:
+   - \usepackage{setspace, amsmath}
+---
+
+# Installation
+
+Software Requirements:
+
++ [R Language](https://www.r-project.org/)
++ [R Studio](https://www.rstudio.com/)
++ LaTeX markup language: [Click here for Mac Users](http://www.tug.org/mactex/), [Click here for Windows Users](https://miktex.org/download)
++ [Pandoc](https://pandoc.org/) converter to be able to save a Word Document as needed
+
+A number of R-packages are required which can be installed via R-Studio.
+
+# Examples of Insertion of Code Blocks
+
+Chunks of code and within-sentence code can be inserted directly into the document so that if you make any modification to the original data, when written properly, the changes will propagate through the whole document. You can, of course, read in a .csv or .xlsx document are part of the process. Code blocks can be named if they need to be cross-referenced or they can generically and automatically named.
+
+```{r hist, echo = FALSE, eval = TRUE, fig.cap="Here is an awesome figure caption.", fig.height=4, fig.width=5}
+set.seed(10)
+x <- rnorm(100,0,1)
+x[100] <- 10
+hist(x,
+     breaks = 15,
+     freq = FALSE)
+lines(density(x))
+```
+
+If you want the raw code to show you set the flag `echo = TRUE`.
+
+```{r prime, echo = TRUE, eval = TRUE}
+library(schoolmath)
+prime.factor(132) #Finds the prime factors of 132
+```
+
+This produces unfortunate looking unformatted output which can be improved upon.
+
+## Inline Code
+
+It is extremely useful to put inline code into your sentences. For example, we can calculate the median and central 95% of $x$ as `r round(median(x),3)`, CI = [`r round(quantile(x, probs = c(0.025,0.975)),3)`] and have it appear right in this sentence along with, say, the maximum of $x=$ `r max(x)`.  
+
+# More on Figures 
+
+## Cross Referencing a Figure
+
+If you need to make reference to a figure, for example to figure \@ref(fig:hist), you do it by the *name* and not by the *number* so that if the figure order changes, the numbering will change automatically.
+
+## Figures from a file
+
+Sometimes you want to include a figure from a file, for example a picture of Darth Vader is shown in figure \@ref(fig:darth).
+
+```{r darth, echo=FALSE, fig.cap="I find your lack of faith disturbing."}
+knitr::include_graphics("Images/darth.jpg")
+```
+
+# Insertion of Tables
+
+Tables need to be outputted through a function in order that they look nice.  Ultimately, there is total control of the table appearance using LaTeX, but this is outside our scope. Simple tables can be inserted with the `kable` package.
+
+```{r table, echo = FALSE}
+age <- c(22,34,54)
+sex <- c("M","M","F")
+TSH <- c(2.4,0.1, 10.3)
+patient.data <- data.frame(age, sex, TSH)
+knitr::kable(patient.data, booktabs = TRUE, col.names = c("Age(y)","Sex", "TSH"), caption = "This is my first table")
+```
+
+
+## Cross Reference of a Table
+
+Of course, tables can be cross referenced in the same manner as figures. Here is a cross reference to table \@ref(tab:table).
+
+You can also take the output of a statistical analysis and put it into a table as shown in table \@ref(tab:bigtable):
+
+```{r bigtable, echo = FALSE}
+library(broom)
+mod <- lm(mpg ~ hp + cyl, data = mtcars)
+knitr::kable(tidy(mod), digits = 3, booktabs = TRUE, caption = "A more complex table")
+```
+
+
+# Handling Mathematics
+
+You can insert mathematics inline with the use of \$-signs and LaTeX math code. For example we can say $sin^2(x) + cos^2(x) = 1$ or $sin(x) = \frac{Opposite}{Hypotenuse}$. You can also make equations that are complex and cross-referenceable as shown in equation \@ref(eq:myequation).
+
+\begin{equation}
+i\hbar \frac{\partial \Psi}{\partial t} = -\frac{\hbar^2}{2m}
+\frac{\partial^2 \Psi}{\partial x^2} + V \Psi
+(\#eq:myequation)
+\end{equation}
+
+# Handling Literature References
+
+Here is an article that Shannon Haymond wrote [@haymond2005laboratory] and here is one that Dan Holmes wrote that has fewer citations and is not as important [@rehan2015laboratory]. If we wanted to cite them both together we can do so [@haymond2005laboratory; @rehan2015laboratory].
+
+## CSL files and Reference Abbreviation
+
+Abbreviation of reference names is not mandatory if you are submitting to an Elsevier journal but if you are submitting as a Word document to a journal that does not support LaTeX, you will need to abbreviate your references as per the journal's requirements. I have prepared a .json file for you from the *entire* web of science list of journals. It is stored in the Extras folder. This will permit journal abbreviation. To choose the right reference formatting you need to choose the right .csl file from the [github csl repository](https://github.com/citation-style-language/styles). You can download the sourcecode for this article [here](https://github.com/drdanholmes/AACC2019).
+
+# Useful Online Articles
+
+Here are several useful articles on this topic:
+
++ [The idea for the presentation started with this blog article](https://labrtorian.com/2018/02/05/reproducible-research-write-your-clinical-chemistry-paper-using-r/).
++ [A nice presentation can be found here](http://rstudio-pubs-static.s3.amazonaws.com/368020_865af4d4afaa4c5cbdb95a7b2670c812.html#49).
++ [Here is a helpful article](https://libscie.github.io/rmarkdown-workshop/handout.html).
++ [Here is the Definitive Guide for all things Bookdown](https://bookdown.org/yihui/rmarkdown/). This pertains to much more than academic papers.
+
+# Submitting your Stuff
+
+If you need to submit in word, just knit to Word instead of PDF. The yaml parameter `keep_tex = TRUE` permits you to have the LaTeX source which is submittable as is to any Elsevier journal. 
+
+# References

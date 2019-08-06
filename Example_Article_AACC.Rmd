@@ -83,7 +83,7 @@ If you need to make reference to a figure, for example to figure \@ref(fig:hist)
 Sometimes you want to include a figure from a file, for example a picture of Darth Vader is shown in figure \@ref(fig:darth).
 
 ```{r darth, echo=FALSE, fig.align="center", fig.cap="I find your lack of faith disturbing."}
-knitr::include_graphics("Images/darth")
+knitr::include_graphics("Images/darth.jpg")
 ```
 
 # Insertion of Tables
